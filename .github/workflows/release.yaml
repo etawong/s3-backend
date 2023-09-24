@@ -12,8 +12,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v3
-      - name: release
+      - name: release install
         run: npm install --save-dev semantic-release
+      - name: release
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
