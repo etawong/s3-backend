@@ -1,6 +1,6 @@
 variable "env" {
   type    = string
-  default = "Prod"
+  default = "PRod"
 }
 
 variable "region" {
