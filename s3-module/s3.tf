@@ -53,14 +53,14 @@ resource "aws_s3_bucket_versioning" "versioning_example" {
 resource "aws_s3_bucket_public_access_block" "backend" {
   bucket = aws_s3_bucket.backend[0].id
 
-  block_public_acls   = true
-  block_public_policy = true
+  block_public_acls       = true
+  block_public_policy     = true
   restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_logging" "example" {
-   bucket = aws_s3_bucket.example.id
+  bucket = aws_s3_bucket.example.id
 
-   target_bucket = aws_s3_bucket.log_bucket.id
-   target_prefix = "log/"
+  target_bucket = aws_s3_bucket.log_bucket.id
+  target_prefix = "log/"
 }

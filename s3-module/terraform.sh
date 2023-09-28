@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #enable debugging mode
-set -x
+#set -x
 
 # set the TF_LOG environment variable to "DEBUG. This instructs Terraform to produce detailed debug-level log messages
 # Also set the TF_LOG_PATH environment variable to "./terraform.log."
@@ -83,10 +83,9 @@ else
     exit 1 # exit 1 means it's going to fail the script
 fi
 
-terraform plan -out=${TF_PLAN}
-
+#check if the TF_PLAN exists
 if [ ! -f "${TF_PLAN}" ]
 then
-    echo "\*\*\*The plan does not exist. Exiting\*\*\*"
+    echo "*****The plan does not exist. Exiting*****"
     exit 1
 fi
