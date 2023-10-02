@@ -15,10 +15,15 @@ resource "aws_s3_bucket" "backend" {
 
 # kms key for bucket encription
 resource "aws_kms_key" "my_key" {
-  description             = "This key is used to encrypt bucket objects"
-  is_enabled              = true
-  enable_key_rotation     = true
-  deletion_window_in_days = 10
+  description                        = "This key is used to encrypt bucket objects"
+  is_enabled                         = true
+  enable_key_rotation                = true
+  deletion_window_in_days            = 10
+  bypass_policy_lockout_safety_check = false
+  #custom_key_store_id                = null
+  customer_master_key_spec = "SYMMETRIC_DEFAULT"
+  key_usage                = "ENCRYPT_DECRYPT"
+  tags                     = null
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "example" {
@@ -56,11 +61,13 @@ resource "aws_s3_bucket_public_access_block" "backend" {
   block_public_acls       = true
   block_public_policy     = true
   restrict_public_buckets = true
+  ignore_public_acls      = false
 }
 
 resource "aws_s3_bucket_logging" "example" {
-  bucket = aws_s3_bucket.example.id
+  bucket = aws_s3_bucket.backend[0].id
 
-  target_bucket = aws_s3_bucket.log_bucket.id
+  target_bucket = aws_s3_bucket.backend[0].id
   target_prefix = "log/"
 }
+
